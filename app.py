@@ -4,9 +4,14 @@ from utils.ChatGPTResponseHandler import ChatGPTResponseHandler, Model
 from utils.split_response_by_delimiters import split_response_by_delimiters
 import json
 
+
+
 handler = ChatGPTResponseHandler(model=Model.gpt4preview, prompt=prompt, prompt_id=1)
 
 app = Flask(__name__)
+
+if __name__ == "__main__":
+    app.run(port=8000, debug=True)
 
 @app.route("/")
 def hello_world():
@@ -15,6 +20,7 @@ def hello_world():
 
 @app.route('/computeActFrame', methods=['POST'])
 def compute_act_frame():
+    
     # Extract the message from the request (not used in this hardcoded example)
     data = request.json
     message = data.get('message')
@@ -29,3 +35,5 @@ def compute_act_frame():
     act_frame_response = json.loads(json_string)
 
     return jsonify(act_frame_response)
+
+

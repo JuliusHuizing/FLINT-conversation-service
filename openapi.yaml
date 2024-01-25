@@ -7,7 +7,7 @@ servers:
   # - description: SwaggerHub API Auto Mocking
   #   url: https://virtserver.swaggerhub.com/jhuizing/test/1.0.0
   - description: "local host"
-    url: http://localhost:5000
+    url: http://localhost:8000
 paths:
   /computeActFrame:
     post:
@@ -32,7 +32,6 @@ paths:
                 $ref: '#/components/schemas/ActFrame'
 components:
   schemas:
-
     ActFrame:
       type: object
       properties:

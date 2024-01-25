@@ -16,8 +16,13 @@ The third and final subcomponent is responsible for transforming the semi-struct
 
 
 ## Usage
+> [!IMPORTANT]
+> By default, the app runs on port 8000. Consider not using port 5000 because [this port is used by the Control Center application on MacOS systems](https://stackoverflow.com/questions/72795799/how-to-solve-403-error-with-flask-in-python). Using port 5000 can therefore lead to errors when accessing the server, such as a 403 error.
 
-flask --app app run
+run the app by running:
+```bash
+python app.py
+```
 
 
 # TODO's
