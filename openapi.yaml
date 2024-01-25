@@ -30,6 +30,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ActFrame'
+
+  /stream_reasoning:
+    post:
+      summary: Stream Reasoning
+      description: Accepts a string and streams the response from OpenAI API.
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: "Tell me a joke."
+              description: Input string to be processed.
+      responses:
+        '200':
+          description: A stream of responses from the OpenAI API.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Sure, here's a joke: Why don't scientists trust atoms? Because they make up everything!"
+        '400':
+          description: Invalid input.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: "Invalid input format"
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: "Internal server error"
 components:
   schemas:
     ActFrame:
