@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, stream_with_context, json, jsonify
+from flask import Flask, request, Response, stream_template, json, jsonify
 import requests
 import sseclient
 from system_prompts.system_base_prompt import prompt
@@ -41,25 +41,24 @@ def compute_act_frame():
 
 @app.route('/stream_reasoning', methods=['POST'])
 def stream_reasoning():
-    def generate():
-        # Capture the data outside of the generator
-        input_string = request.data.decode('utf-8')
-        response = openai.chat.completions.create(
-                    model="gpt-3.5-turbo",  # adjust the model as needed
-                    messages=[{"role": "system", "content": "You are a helpful assistant."},
-                            {"role": "user", "content": input_string}],
-                    stream=True
-                )
-        client = sseclient.SSEClient(response)
-        for event in client.events():
-            if event.data != '[DONE]':
-                try:
-                    text = json.loads(event.data)['choices'][0]['delta']['content']
-                    yield(text)
-                except:
-                    yield('')
+    def send_message(message):
+        return openai.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "system", "content": "You are a helpful assistant."},
+                          {"role": "user", "content": message}],            stream=True
+        )
+    if request.method == 'POST':
+        message = request.json['message']
+        def event_stream():
+            for line in send_message(message=message):
+                print(line)
+                text = line.choices[0].delta.content
+                if len(text): 
+                    yield text
 
-    return Response(stream_with_context(generate()))
+        return Response(event_stream(), mimetype='text/event-stream')
+    else:
+        return stream_template('./chat.html')
 
     def generate(input_str):
         try:
