@@ -16,6 +16,22 @@ The third and final subcomponent is responsible for transforming the semi-struct
 
 
 ## Usage
+
+### Installing Dependencies:
+This project uses Poetry as a dependency manager. If you do not have poetry installed, refer to [Poetry's docs](https://python-poetry.org/docs/) for installation instructions.
+
+Run the following command to install the project dependencies as defined in the pyproject.toml file:
+
+```bash
+poetry install
+```
+
+and activate the shell:
+```bash
+poetry shell
+```
+
+### Running the Application:
 > [!IMPORTANT]
 > By default, the app runs on port 8000. Consider not using port 5000 because [this port is used by the Control Center application on MacOS systems](https://stackoverflow.com/questions/72795799/how-to-solve-403-error-with-flask-in-python). Using port 5000 can therefore lead to errors when accessing the server, such as a 403 error.
 
@@ -24,8 +40,7 @@ run the app by running:
 python app.py
 ```
 
-and inspect the stream functionality:
-
+Inspect the stream functionality:
 ```bash
 curl -X POST -H "Content-Type: application/json" -d '{"message": "summarize the history of the US in 500 words"}' http://localhost:8000/stream_reasoning
 ```
