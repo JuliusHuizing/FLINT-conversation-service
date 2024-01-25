@@ -1,0 +1,114 @@
+openapi: "3.0.3"
+info:
+  title: FLINT-conversation-service
+  version: 1.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/jhuizing/test/1.0.0
+  - description: "local host"
+    url: http://localhost:8080
+paths:
+  /computeActFrame:
+    post:
+      summary: Process user input
+      description: Endpoint to process user input
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              
+      responses:
+        '200':
+          description: Successfully processed the data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActFrame'
+components:
+  schemas:
+
+    ActFrame:
+      type: object
+      properties:
+        Action:
+          type: string
+          example: grant
+        Actor:
+          type: string
+          example: Minister of Justice and Security
+        Object:
+          type: string
+          example: application to provide a temporary regular residence permit
+        Recipient:
+          type: string
+          example: alien
+        Preconditions:
+          $ref: '#/components/schemas/BooleanSet'
+        Creating_postcondition:
+          type: array
+          items:
+            type: string
+          example:
+            - decision to grant an application to provide a temporary regular residence permit
+            - granting a temporary regular residence permit under restrictions
+            - determine the period of validity of the regular residence permit
+            - provide the alien with a document proving lawful residence
+        Terminating_postcondition:
+          type: array
+          items:
+            type: string
+          example:
+            - application to provide a temporary regular residence permit
+        References_to_sources:
+          type: array
+          items:
+            type: string
+          example:
+            - Art. 14 (1) Aliens Act, main clause and under (a)
+      required:
+        - Action
+        - Actor
+        - Object
+        - Recipient
+        - Preconditions
+        - Creating_postcondition
+        - Terminating_postcondition
+        - References_to_sources
+
+
+    BooleanSet:
+      type: object
+      properties:
+        and:
+          type: array
+          items:
+            $ref: '#/components/schemas/BooleanSet'
+        or:
+          type: array
+          items:
+            $ref: '#/components/schemas/BooleanSet'
+        not:
+          $ref: '#/components/schemas/BooleanSet'
+        condition:
+          type: string
+      additionalProperties: false
+      example: # Corrected example section
+        and:
+          - condition: "regular residence permit is granted"
+          - not:
+              condition: "residence permit granted earlier than application receipt"
+          - not:
+              condition: "alien has a travel ban"
+          - not:
+              condition: "alien has pronouncement of undesirability"
+        or:
+          - condition: "applicant has valid passport"
+          - condition: "applicant has valid ID card"
+        not:
+          condition: "applicant is currently under detention"
