@@ -18,3 +18,7 @@ The third and final subcomponent is responsible for transforming the semi-struct
 ## Usage
 
 flask --app app run
+
+
+# TODO's
+- [ ] Containerize
