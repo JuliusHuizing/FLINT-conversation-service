@@ -27,7 +27,7 @@ python app.py
 and inspect the stream functionality:
 
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{"message": "summarize the history of the US in 500 words"}' http://localhost:5000/stream_reasoning
+curl -X POST -H "Content-Type: application/json" -d '{"message": "summarize the history of the US in 500 words"}' http://localhost:8000/stream_reasoning
 ```
 
 
