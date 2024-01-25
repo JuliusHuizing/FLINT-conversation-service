@@ -2,7 +2,13 @@
 import openai
 from openai import OpenAI
 from enum import Enum
+from dotenv import load_dotenv, find_dotenv
+import os
 
+# The OPENAI_SECRET key env var needs to be set for the OpenAI API to work.
+load_dotenv(find_dotenv())
+OPENAI_SECRET_KEY = os.getenv('OPENAI_SECRET_KEY')
+os.environ["OPENAI_API_KEY"] = OPENAI_SECRET_KEY
 
 class Model(Enum):
     gpt35turbo = "gpt-3.5-turbo-1106" 
