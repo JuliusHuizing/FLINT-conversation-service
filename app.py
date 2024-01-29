@@ -29,7 +29,7 @@ def chat():
     # json_string = sub_responses[1]
     # act_frame_response = json.loads(json_string)
 
-    return output
+    return jsonify({"system": output})
 
 @app.route('/computeActFrame', methods=['POST'])
 def compute_act_frame():
