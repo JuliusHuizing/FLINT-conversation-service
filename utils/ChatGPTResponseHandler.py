@@ -56,12 +56,12 @@ class ChatGPTResponseHandler:
   # MARK: - Private Methods
   def _chat(self, messages: list):
       chat_history = [{"role": "system", "content": self.system_prompt}]
-      chat_history.append(messages)
+      chat_history.extend(messages)
       response = self._client.chat.completions.create(
       seed=self._seed, 
       temperature=self._temperature, 
       model=self._model,
-      messages=messages)
+      messages=chat_history)
       return response
   
      

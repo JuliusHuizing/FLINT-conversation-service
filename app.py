@@ -14,7 +14,7 @@ load_dotenv(find_dotenv())
 OPENAI_SECRET_KEY = os.getenv('OPENAI_SECRET_KEY')
 os.environ["OPENAI_API_KEY"] = OPENAI_SECRET_KEY
 
-handler = ChatGPTResponseHandler(model=Model.gpt4preview, prompt=prompt, prompt_id=1)
+handler = ChatGPTResponseHandler(model=Model.gpt35turbo, prompt=prompt, prompt_id=1)
 app = Flask(__name__)
 
 @app.route('/chat', methods=['POST'])
