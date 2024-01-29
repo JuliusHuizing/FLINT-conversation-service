@@ -14,19 +14,29 @@ load_dotenv(find_dotenv())
 OPENAI_SECRET_KEY = os.getenv('OPENAI_SECRET_KEY')
 os.environ["OPENAI_API_KEY"] = OPENAI_SECRET_KEY
 
-
 handler = ChatGPTResponseHandler(model=Model.gpt4preview, prompt=prompt, prompt_id=1)
-
 app = Flask(__name__)
 
+@app.route('/chat', methods=['POST'])
+def chat():
+    data = request.json
+    messages = data.get('messages')
+    if not messages:
+        return jsonify({"error": "Message is required"}), 400
+    
+    output = handler.request_chat_response(messages=messages)
+    # sub_responses = split_response_by_delimiters(output, delimiters=[("$$$", "$$$"), ("```", "```")])
+    # json_string = sub_responses[1]
+    # act_frame_response = json.loads(json_string)
 
+    return output
 
 @app.route('/computeActFrame', methods=['POST'])
 def compute_act_frame():
     
     # Extract the message from the request (not used in this hardcoded example)
     data = request.json
-    message = data.get('message')
+    message = data.get('messages')
 
     if not message:
         return jsonify({"error": "Message is required"}), 400
@@ -44,7 +54,7 @@ def stream_reasoning():
     def send_message(message):
         return openai.chat.completions.create(
             model="gpt-3.5-turbo",
-            messages=[{"role": "system", "content": "You are a helpful assistant."},
+            messages=[{"role": "system", "content": "You are an unhelpful assistant that speaks in half baked sentences."},
                           {"role": "user", "content": message}],            stream=True
         )
     if request.method == 'POST':

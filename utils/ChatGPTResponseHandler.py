@@ -32,22 +32,37 @@ class ChatGPTResponseHandler:
     response = self._computeReponse(input)
     message = self._extract_message_from_response(response)
     return message
-        
+  
+  def request_chat_response(self, messages: list) -> str:
+    response = self._chat(messages)
+    message = self._extract_message_from_response(response)
+    return message
         
   # MARK: - Private Methods
   def _computeReponse(self, sentence):
-     response = self._client.chat.completions.create(
+    response = self._client.chat.completions.create(
+    seed=self._seed, 
+    temperature=self._temperature, 
+    model=self._model,
+    # response_format={ "type": "json_object" },
+    messages=[
+      {"role": "system", "content": self.system_prompt},
+      {"role": "user", "content": sentence},
+    ],
+    # stream=True,
+  )
+    return response
+   
+  # MARK: - Private Methods
+  def _chat(self, messages: list):
+      chat_history = [{"role": "system", "content": self.system_prompt}]
+      chat_history.append(messages)
+      response = self._client.chat.completions.create(
       seed=self._seed, 
       temperature=self._temperature, 
       model=self._model,
-      # response_format={ "type": "json_object" },
-      messages=[
-        {"role": "system", "content": self.system_prompt},
-        {"role": "user", "content": sentence},
-      ],
-      # stream=True,
-    )
-     return response
+      messages=messages)
+      return response
   
      
   def _extract_message_from_response(self, response) -> str:

@@ -8,7 +8,38 @@ servers:
   #   url: https://virtserver.swaggerhub.com/jhuizing/test/1.0.0
   - description: "local host"
     url: http://localhost:8000
+    
 paths:
+  /chat:
+    post:
+      summary: Process chat messages
+      description: Accepts a list of chat messages and returns a processed string response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                messages:
+                  $ref: '#/components/schemas/Messages'
+      responses:
+        '200':
+          description: Successfully processed the chat messages.
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Invalid request, when 'messages' are not provided.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Message is required"
   /computeActFrame:
     post:
       summary: Process user input
@@ -56,6 +87,18 @@ paths:
                 example: "Response text from OpenAI API..."
 components:
   schemas:
+    Messages:
+      type: array
+      items:
+        type: object
+        properties:
+          role:
+            type: string
+            enum: [system, user]
+            description: The role of the message sender.
+          content:
+            type: string
+            description: The content of the message.
     ActFrame:
       type: object
       properties:
