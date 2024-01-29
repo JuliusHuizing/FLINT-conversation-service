@@ -24,12 +24,14 @@ def chat():
     if not messages:
         return jsonify({"error": "Message is required"}), 400
     
+    
     output = handler.request_chat_response(messages=messages)
+    
     # sub_responses = split_response_by_delimiters(output, delimiters=[("$$$", "$$$"), ("```", "```")])
     # json_string = sub_responses[1]
     # act_frame_response = json.loads(json_string)
 
-    return jsonify({"system": output})
+    return jsonify({"role": "system", "content": output})
 
 @app.route('/computeActFrame', methods=['POST'])
 def compute_act_frame():
