@@ -47,6 +47,7 @@ in deel 2 geef je een json met de volgende keys:
  
 }
     - geef dit anwtoord tussen drie backticks (```)en enkel drie backticks (i.e. geen json achter de backticks zetten)).
+    - geef de "provided_norm" key niet als de value None is.
 
 """
 
