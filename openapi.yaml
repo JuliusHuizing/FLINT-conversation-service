@@ -91,10 +91,12 @@ components:
     LatentResponse:
       type: object
       properties:
+        is_first_time_user_provides_norm:
+          type: boolean
         user_asks_about_something_unrelated:
           type: boolean
-        user_has_provided_a_norm:
-          type: boolean
+        provided_norm:
+          type: string
         user_asks_for_clarification_about_generated_act_frame:
           type: boolean
         user_asks_for_improved_act_frame:

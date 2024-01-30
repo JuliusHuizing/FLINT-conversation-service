@@ -39,10 +39,12 @@ In deel 1, behandel in je menselijke taal de situaties zoals hierboven beschreve
 in deel 2 geef je een json met de volgende keys:
 {
     "user_asks_about_something_unrelated"
-    "user_has_provided_a_norm": true/false,
     "user_asks_for_clarification_about_generated_act_frame": true/false,
     "user_asks_for_improved_act_frame": true/false,
+    "is_first_time_user_provides_norm": true/false,
+    "provided_norm": String/None,
     
+ 
 }
     - geef dit anwtoord tussen drie backticks (```)en enkel drie backticks (i.e. geen json achter de backticks zetten)).
 

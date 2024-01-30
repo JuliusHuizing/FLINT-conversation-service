@@ -31,8 +31,10 @@ def chat():
     print("sub2:", sub_responses[1])
     # make json out of sub_response 1
     message_response = sub_responses[0]
-    latent_response = sub_responses[1]
-    latent_response = json.loads(latent_response)
+    json_string = sub_responses[1]
+    latent_response = json.loads(json_string)
+    
+    
     # print("json:", json_response)
     
 
