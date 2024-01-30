@@ -29,12 +29,20 @@ def chat():
     sub_responses = split_response_by_delimiters(output, delimiters=[("$$$", "$$$"), ("```", "```")])
     print("sub1:", sub_responses[0])
     print("sub2:", sub_responses[1])
+    # make json out of sub_response 1
+    message_response = sub_responses[0]
+    latent_response = sub_responses[1]
+    latent_response = json.loads(latent_response)
+    # print("json:", json_response)
+    
 
     # sub_responses = split_response_by_delimiters(output, delimiters=[("$$$", "$$$"), ("```", "```")])
     # json_string = sub_responses[1]
     # act_frame_response = json.loads(json_string)
 
-    return jsonify({"role": "system", "content": output})
+    return jsonify({"message": {"role": "system", "content": output},
+        "latentResponse": latent_response,
+                   "actFrames": []})
 
 @app.route('/computeActFrame', methods=['POST'])
 def compute_act_frame():

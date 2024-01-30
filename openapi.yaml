@@ -88,6 +88,17 @@ paths:
                 example: "Response text from OpenAI API..."
 components:
   schemas:
+    LatentResponse:
+      type: object
+      properties:
+        user_asks_about_something_unrelated:
+          type: boolean
+        user_has_provided_a_norm:
+          type: boolean
+        user_asks_for_clarification_about_generated_act_frame:
+          type: boolean
+        user_asks_for_improved_act_frame:
+          type: boolean
     ChatResponse:
       type: object
       properties:
@@ -98,6 +109,10 @@ components:
           items:
             $ref: '#/components/schemas/ActFrame'
           nullable: true
+        latentResponse:
+          $ref: '#/components/schemas/LatentResponse'
+          nullable: true
+
     Messages:
       type: array
       items:
