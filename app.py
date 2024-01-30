@@ -40,7 +40,7 @@ def chat():
     # json_string = sub_responses[1]
     # act_frame_response = json.loads(json_string)
 
-    return jsonify({"message": {"role": "system", "content": output},
+    return jsonify({"message": {"role": "system", "content": message_response},
         "latentResponse": latent_response,
                    "actFrames": []})
 
