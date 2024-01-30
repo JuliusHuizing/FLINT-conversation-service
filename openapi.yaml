@@ -41,7 +41,7 @@ paths:
                   error:
                     type: string
                     example: "Message is required"
-  /computeActFrame:
+  /computeInitialActFrame:
     post:
       summary: Process user input
       description: Endpoint to process user input

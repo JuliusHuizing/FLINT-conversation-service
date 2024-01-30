@@ -31,7 +31,11 @@ def chat():
     print("sub2:", sub_responses[1])
     # make json out of sub_response 1
     message_response = sub_responses[0]
+    
     json_string = sub_responses[1]
+    # remove potentially prefixing 'json' from string
+    json_string = json_string.replace("json", "")
+    print("json_string:", json_string)
     latent_response = json.loads(json_string)
     
     

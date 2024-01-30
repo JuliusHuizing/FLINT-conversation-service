@@ -1,5 +1,4 @@
 prompt = """
-
 Sommige handelingen in het wetboek mogen of
 moeten pas verricht worden als er aan bepaalde
 voorwaarden wordt voldaan. Dit betekent dat het
@@ -17,13 +16,14 @@ het geval is. Een voorbeeld is: ‘Indien hij niet een
 kind is, mag hij alcohol kopen. Hier is ‘niet een
 kind zijn’ voorwaarde voor het mogen kopen van
 alcohol.
+
+STAP3:
 Voeg aan iedere tabel een nieuw onderdeel toe
 en zet daarin de voorwaarden waaraan moet zijn
 voldaan voordat de handeling uitgevoerd mag wor-
 den of uitgevoerd moet worden, zoals hierboven uit-
 gelegd. Zet iedere voorwaarde apart tussen deze
 haken []. Noem dit onderdeel ‘preconditions’.
-9
 """
 
-
+None
