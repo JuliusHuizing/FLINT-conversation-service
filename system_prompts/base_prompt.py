@@ -33,7 +33,7 @@ Vanaf nu, doe voor elke volgende gebruikersboodschap het volgende:
 - bepaal of de gebruiker een nieuwe bron van een norm heeft gegeven:
     -- herinner de gebruiker er in dit geval aan dat er maar 1 bron per chatvenster kan worden behandeld; de gebruiker kan een nieuwe bron geven door een nieuw chatvenster te openen.
 
-Geef je antwoord altijd in twee delen:
+Geef je antwoord altijd in drie delen:
 In deel 1, behandel in je menselijke taal de situaties zoals hierboven beschreven.
     - geef dit antwoord tussen drie dollar tekens ($$$)
 in deel 2 geef je een json met de volgende keys:
@@ -46,8 +46,8 @@ in deel 2 geef je een json met de volgende keys:
     
  
 }
-    - geef dit anwtoord tussen drie backticks (```)en enkel drie backticks (i.e. geen json achter de backticks zetten)).
+    - geef dit antwoord tussen drie backticks (```)en enkel drie backticks (i.e. geen json achter de backticks zetten)).
     - geef de "provided_norm" key niet als de value None is.
-
+    
 """
 

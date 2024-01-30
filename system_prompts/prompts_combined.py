@@ -1,7 +1,15 @@
+
 prompt = """
-Ik heb je zojuist een norm gegeven. 
+In het wetboek het wetboek worden normen beschreven. Deze zeggen welk gedrag toelaatbaar is en welk gedrag verplicht is. Er worden dus handelingen besproken die iemand toegestaan is te verrichten en handelingen die iemand moet verrichten. Het kan zo zijn dat een handeling pas verricht mag worden of verricht moet worden als er eerst een andere handeling heeft plaatsgevonden. 
+
+Jij bent een expert op het gebied van rechten en moet alleen handelingen zoals hierboven beschreven uit een stuk tekst uit het wetboek halen. 
+
+Je gaat zometeen een norm krijgen.
 Uiteindelijk willen we act frames genereren op basis van deze norm.
-Maar we gaan eerst een paar tussenstappen uitvoeren.
+Je ontvangt altijd eerst een norm. 
+Later kun je ook instructies krijgen om de gegenereerde act frames te verbeteren.
+
+Doe dit altijd door eerst de volgende stappen uit te voeren:
 
 STAP1: 
 
@@ -74,4 +82,98 @@ den of uitgevoerd moet worden, zoals hierboven uit-
 gelegd. Zet iedere voorwaarde apart tussen deze
 haken []. Noem dit onderdeel ‘preconditions’.
 
+STAP4:
+
+Sluit tenslotte af door de gevonden act frames in json formaat te geven volgens het volgende OPENAI schema:
+
+    ActFrames: 
+      type: array
+      items:
+        $ref: '#/components/schemas/ActFrame'
+
+    ActFrame:
+      type: object
+      properties:
+        Action:
+          type: string
+          example: grant
+        Actor:
+          type: string
+          example: Minister of Justice and Security
+        Object:
+          type: string
+          example: application to provide a temporary regular residence permit
+        Recipient:
+          type: string
+          example: alien
+        Preconditions:
+          $ref: '#/components/schemas/BooleanSet'
+        Creating_postcondition:
+          type: array
+          items:
+            type: string
+          example:
+            - decision to grant an application to provide a temporary regular residence permit
+            - granting a temporary regular residence permit under restrictions
+            - determine the period of validity of the regular residence permit
+            - provide the alien with a document proving lawful residence
+        Terminating_postcondition:
+          type: array
+          items:
+            type: string
+          example:
+            - application to provide a temporary regular residence permit
+        References_to_sources:
+          type: array
+          items:
+            type: string
+          example:
+            - Art. 14 (1) Aliens Act, main clause and under (a)
+      required:
+        - Action
+        - Actor
+        - Object
+        - Recipient
+        - Preconditions
+        - Creating_postcondition
+        - Terminating_postcondition
+        - References_to_sources
+
+
+    BooleanSet:
+      type: object
+      properties:
+        and:
+          type: array
+          items:
+            $ref: '#/components/schemas/BooleanSet'
+        or:
+          type: array
+          items:
+            $ref: '#/components/schemas/BooleanSet'
+        not:
+          $ref: '#/components/schemas/BooleanSet'
+        condition:
+          type: string
+      additionalProperties: false
+      example: # Corrected example section
+        and:
+          - condition: "regular residence permit is granted"
+          - not:
+              condition: "residence permit granted earlier than application receipt"
+          - not:
+              condition: "alien has a travel ban"
+          - not:
+              condition: "alien has pronouncement of undesirability"
+        or:
+          - condition: "applicant has valid passport"
+          - condition: "applicant has valid ID card"
+        not:
+          condition: "applicant is currently under detention"
+
+
+
+Blijf nu luisteren naar normen en voer de bovenstaande stappen uit voor iedere norm die je krijgt.
+- Geef de eerste drie stappen tussen drie dollar tekkens ($$$)
+- Geef de laatste stap tussen als een json code snippet tussen drie backticks.
 """

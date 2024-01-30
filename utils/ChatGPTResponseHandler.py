@@ -5,6 +5,8 @@ from dotenv import load_dotenv, find_dotenv
 import os
 import logging
 
+from system_prompts.prompts_combined import prompt as combined_prompt
+
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -27,6 +29,7 @@ class ChatGPTResponseHandler:
         self._model = model.value
         self._prompt_id = prompt_id
         self.system_prompt = prompt
+        
 
     def id(self):
         logger.info("Generating id")
@@ -41,6 +44,13 @@ class ChatGPTResponseHandler:
     def request_chat_response(self, messages: list) -> str:
         logger.info(f"Requesting chat response for messages: {messages}")
         response = self._chat(messages)
+        message = self._extract_message_from_response(response)
+        logger.info(f"Chat response unpacked: {message}")
+        return message
+    
+    def requst_chat_response_with_act_frame_listener(self, messages: list) -> str:
+        logger.info(f"Requesting chat response with act frame listener for messages: {messages}")
+        response = self._chat_with_act_frame_listener(messages)
         message = self._extract_message_from_response(response)
         logger.info(f"Chat response unpacked: {message}")
         return message
@@ -61,6 +71,19 @@ class ChatGPTResponseHandler:
     def _chat(self, messages: list):
         logger.info("Creating chat completion")
         chat_history = [{"role": "system", "content": self.system_prompt}]
+        chat_history = chat_history + messages
+        logger.info(f"Chat history: {chat_history}")
+        response = self._client.chat.completions.create(
+            seed=self._seed,
+            temperature=self._temperature,
+            model=self._model,
+            messages=chat_history)
+        logger.info(f"Chat response: {response}")
+        return response
+    
+    def _chat_with_act_frame_listener(self, messages: list):
+        logger.info("Creating chat completion with act frame listener")
+        chat_history = [{"role": "system", "content": combined_prompt}]
         chat_history = chat_history + messages
         logger.info(f"Chat history: {chat_history}")
         response = self._client.chat.completions.create(

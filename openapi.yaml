@@ -41,27 +41,49 @@ paths:
                   error:
                     type: string
                     example: "Message is required"
-  /computeInitialActFrame:
+
+  /chatWithActFrameWorker:
     post:
-      summary: Process user input
-      description: Endpoint to process user input
+      summary: Process chat messages
+      description: Accepts a list of chat messages and returns a processed string response.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-              
+              type: object
+              properties:
+                messages:
+                  $ref: '#/components/schemas/Messages'
       responses:
         '200':
-          description: Successfully processed the data
+          description: Successfully processed the chat messages.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ActFrame'
+                $ref: '#/components/schemas/ChatResponse'
+
+  # /computeInitialActFrame:
+  #   post:
+  #     summary: Process user input
+  #     description: Endpoint to process user input
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #               type: object
+  #               properties:
+  #                 message:
+  #                   type: string
+              
+  #     responses:
+  #       '200':
+  #         description: Successfully processed the data
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ActFrame'
 
   /stream_reasoning:
     post:
@@ -129,6 +151,11 @@ components:
         content:
           type: string
           description: The content of the message.
+
+    ActFrames: 
+      type: array
+      items:
+        $ref: '#/components/schemas/ActFrame'
 
     ActFrame:
       type: object

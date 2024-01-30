@@ -49,6 +49,38 @@ def chat():
     return jsonify({"message": {"role": "system", "content": message_response},
         "latentResponse": latent_response,
                    "actFrames": []})
+    
+@app.route('/chatWithActFrameWorker', methods=['POST'])
+def chatWithActFrameWorker():
+    data = request.json
+    messages = data.get('messages')
+    if not messages:
+        return jsonify({"error": "Message is required"}), 400
+    
+    
+    output = handler.requst_chat_response_with_act_frame_listener(messages=messages)
+    sub_responses = split_response_by_delimiters(output, delimiters=[("$$$", "$$$"), ("```", "```")])
+    print("sub1:", sub_responses[0])
+    print("sub2:", sub_responses[1])
+    # make json out of sub_response 1
+    message_response = sub_responses[0]
+    
+    json_string = sub_responses[1]
+    # remove potentially prefixing 'json' from string
+    json_string = json_string.replace("json", "")
+    print("json_string:", json_string)
+    act_frames = json.loads(json_string)
+    
+    
+    # print("json:", json_response)
+    
+
+    # sub_responses = split_response_by_delimiters(output, delimiters=[("$$$", "$$$"), ("```", "```")])
+    # json_string = sub_responses[1]
+    # act_frame_response = json.loads(json_string)
+
+    return jsonify({"message": {"role": "system", "content": message_response},
+                   "actFrames": act_frames})
 
 @app.route('/computeActFrame', methods=['POST'])
 def compute_act_frame():
