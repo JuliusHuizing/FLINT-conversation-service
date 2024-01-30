@@ -1,7 +1,7 @@
 from flask import Flask, request, Response, stream_template, json, jsonify
 import requests
 import sseclient
-from system_prompts.system_base_prompt import prompt
+from system_prompts.base_prompt import prompt
 import openai
 from utils.ChatGPTResponseHandler import ChatGPTResponseHandler, Model
 from utils.split_response_by_delimiters import split_response_by_delimiters
@@ -14,7 +14,7 @@ load_dotenv(find_dotenv())
 OPENAI_SECRET_KEY = os.getenv('OPENAI_SECRET_KEY')
 os.environ["OPENAI_API_KEY"] = OPENAI_SECRET_KEY
 
-handler = ChatGPTResponseHandler(model=Model.gpt35turbo, prompt=prompt, prompt_id=1)
+handler = ChatGPTResponseHandler(model=Model.gpt4preview, prompt=prompt, prompt_id=1)
 app = Flask(__name__)
 
 @app.route('/chat', methods=['POST'])
@@ -26,7 +26,10 @@ def chat():
     
     
     output = handler.request_chat_response(messages=messages)
-    
+    sub_responses = split_response_by_delimiters(output, delimiters=[("$$$", "$$$"), ("```", "```")])
+    print("sub1:", sub_responses[0])
+    print("sub2:", sub_responses[1])
+
     # sub_responses = split_response_by_delimiters(output, delimiters=[("$$$", "$$$"), ("```", "```")])
     # json_string = sub_responses[1]
     # act_frame_response = json.loads(json_string)
