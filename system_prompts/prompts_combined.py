@@ -84,13 +84,7 @@ haken []. Noem dit onderdeel ‘preconditions’.
 
 STAP4:
 
-Sluit tenslotte af door de gevonden act frames in json formaat te geven volgens het volgende OPENAI schema:
-
-    ActFrames: 
-      type: array
-      items:
-        $ref: '#/components/schemas/ActFrame'
-
+Sluit tenslotte af door de gevonden act frames in een lijst terug te geven waarvan de elementen aan het volgende OpenAPI schema voldoen:
     ActFrame:
       type: object
       properties:
@@ -156,22 +150,6 @@ Sluit tenslotte af door de gevonden act frames in json formaat te geven volgens 
         condition:
           type: string
       additionalProperties: false
-      example: # Corrected example section
-        and:
-          - condition: "regular residence permit is granted"
-          - not:
-              condition: "residence permit granted earlier than application receipt"
-          - not:
-              condition: "alien has a travel ban"
-          - not:
-              condition: "alien has pronouncement of undesirability"
-        or:
-          - condition: "applicant has valid passport"
-          - condition: "applicant has valid ID card"
-        not:
-          condition: "applicant is currently under detention"
-
-
 
 Blijf nu luisteren naar normen en voer de bovenstaande stappen uit voor iedere norm die je krijgt.
 - Geef de eerste drie stappen tussen drie dollar tekkens ($$$)
