@@ -60,7 +60,7 @@ class ChatGPTResponseHandler:
 
     def _chat(self, messages: list):
         logger.info("Creating chat completion")
-        chat_history = [{"role": "system", "content": "You are a friendly chatbot."}]
+        chat_history = [{"role": "system", "content": self.system_prompt}]
         chat_history = chat_history + messages
         logger.info(f"Chat history: {chat_history}")
         response = self._client.chat.completions.create(

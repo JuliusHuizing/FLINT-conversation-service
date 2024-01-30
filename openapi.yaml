@@ -29,7 +29,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Message'
+                $ref: '#/components/schemas/ChatResponse'
          
         '400':
           description: Invalid request, when 'messages' are not provided.
@@ -88,6 +88,16 @@ paths:
                 example: "Response text from OpenAI API..."
 components:
   schemas:
+    ChatResponse:
+      type: object
+      properties:
+        message:
+          $ref: '#/components/schemas/Message'
+        actFrames:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActFrame'
+          nullable: true
     Messages:
       type: array
       items:
@@ -102,6 +112,7 @@ components:
         content:
           type: string
           description: The content of the message.
+
     ActFrame:
       type: object
       properties:
