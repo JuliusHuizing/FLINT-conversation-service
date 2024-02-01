@@ -1,4 +1,5 @@
 prompt = """
+STAP2:
 Maak voor elk van deze handelingen een tabel
 met de volgende onderdelen:
 - ‘Name’: dit is de handeling de in de tekst gevon-
