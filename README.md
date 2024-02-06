@@ -3,7 +3,11 @@
 
 
 ## About
-The back-end layer of the Flint-it application prototype.
+The FLINT-conversation-service implements the backend service of the Flint-it application prototype. The service can be used together with the [Flint-it front end service](https://github.com/JuliusHuizing/Flint-It), or can be coupled to existing or future front-end services that can handle the requests and responses specified in the OpenAPI specification as defined in the *./openapi.yaml" file.
+
+
+## Architecture
+![Architecture](./assets/architecture.png)
 
 The back-end layer takes as an input any string (which is expected to correspond to some source of a norm) and returns (1) all the ACT frames it could identify and generate from that string in JSON format and (2) the reasoning steps it used to construct those frames in natural language. 
 
@@ -14,8 +18,6 @@ The first subcomponent is responsible for taking the input string and redirectin
 The second subcomponent is responsible for splitting the previous response up into  two parts: One part that described the reasoning steps used to generate the ACT frames and one part that describes the generated ACT frames in semi-structured format. 
 
 The third and final subcomponent is responsible for transforming the semi-structured ACT frames into json format and send them back as a response together with the reasoning steps. To transform the ACT frames into JSON format, this subcomponent sends the semi-structured ACT-FRAMES to the ChatGPT API as a user prompt while using a system prompt a locally stored prompt experimentally fine-tuned to transform the semi-structured output from the previous step into json format. This is the component that ultimately ensures the service implements the capabilities described in the OAS as dicussed in section \ref{OAS}.
-
-![Architecture](./assets/architecture.png)
 
 
 ## Usage
