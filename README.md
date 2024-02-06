@@ -3,7 +3,7 @@
 
 
 ## About
-The FLINT-conversation-service implements the backend service of the Flint-it application prototype. The service can be used together with the [Flint-it front end service](https://github.com/JuliusHuizing/Flint-It), or can be coupled to existing or future front-end services that can handle the requests and responses specified in the OpenAPI specification as defined in the *./openapi.yaml" file.
+The FLINT-conversation-service implements the backend service of the Flint-it application prototype. The service can be used together with the [Flint-it](https://github.com/JuliusHuizing/Flint-It) front-end service to function as a working prototype, or can be coupled to existing or future front-end services that can handle the requests and responses specified in the OpenAPI specification as defined in the *./openapi.yaml* file.
 
 
 ## Architecture
