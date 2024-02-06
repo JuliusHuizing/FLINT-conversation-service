@@ -1,5 +1,7 @@
 # FLINT-conversation-service
 
+
+
 ## About
 The back-end layer of the Flint-it application prototype.
 
@@ -13,6 +15,7 @@ The second subcomponent is responsible for splitting the previous response up in
 
 The third and final subcomponent is responsible for transforming the semi-structured ACT frames into json format and send them back as a response together with the reasoning steps. To transform the ACT frames into JSON format, this subcomponent sends the semi-structured ACT-FRAMES to the ChatGPT API as a user prompt while using a system prompt a locally stored prompt experimentally fine-tuned to transform the semi-structured output from the previous step into json format. This is the component that ultimately ensures the service implements the capabilities described in the OAS as dicussed in section \ref{OAS}.
 
+![Architecture](./assets/architecture.png)
 
 
 ## Usage
@@ -45,6 +48,3 @@ Inspect the stream functionality:
 curl -X POST -H "Content-Type: application/json" -d '{"message": "summarize the history of the US in 500 words"}' http://localhost:8000/stream_reasoning
 ```
 
-
-# TODO's
-- [ ] Containerize
